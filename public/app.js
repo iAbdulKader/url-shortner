@@ -1,25 +1,35 @@
-// request(){
-//   var urlIN = document.getElementById('url').value;
-//   var slugIN = document.getElementById('slug').value;
-//   console.log(urlIN, slugIN)
-// //var created = null;
-
-//   const response = await fetch('/url', {
-//     method: 'POST',
-//     headers: {
-//     'content-type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       url: urlIN,
-//       slug: slugIN,
-//     })
-//     console.log(response);
-//     var created = await response.json();
-//     document.getElementById('result').innerText = `${created}`
-//   })
-//   alert("hello");
-// }
-
-// function click(){
-//   alert("hey");
-// }
+$(document).ready(function(){
+        var url,slug;
+        $("#submit").click(function(){
+          url=$("#url").val();
+          slug=$("#slug").val();
+          $.post("/url",{url: url,slug: slug}, function(data){
+            if(data != "") {
+                $("#result").val("http://localhost:3000/"+data);
+              }
+            if (data == "slug in use") {
+                $("#result").val(data);
+            }
+          });
+        });
+      });
+      
+ // Copy function
+   function copy() {
+      /* Get the text field */
+      var copyText = document.getElementById("result");
+    
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    
+       /* Copy the text inside the text field */
+      navigator.clipboard.writeText(copyText.value);
+    
+      /* Alert the copied text */
+      alert("Copied the text");
+    }
+      
+      
+      
+      

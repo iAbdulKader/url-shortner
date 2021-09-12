@@ -6,87 +6,108 @@ const yup = require("yup");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
 const bodyParser = require("body-parser");
+const router = express.Router();
 require("dotenv").config();
 
+// Database Handling 
 const db = monk(process.env.MONGODB_URI);
 const urls = db.get('urls');
 urls.createIndex({ slug: 1 }, { unique: true });
 
-
-
+// App function 
 const app = express();
-app.set("view engine", "ejs");
 app.use(express.static('./public'));
 
+// Middlewares
 app.use(helmet());
-app.use(morgan('tiny'));
+app.use(morgan('short'));
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.get('/', (req, res) => {
+app.use(bodyParser.json());
+
+app.use("/",router);
+
+
+// Routes
+//Home Route
+router.get('/yo', (req, res) => {
  res.render("home");
 });
 
-app.get('/:id', async (req, res, next) => {
+// Get Link by ID route
+router.get('/:id', async (req, res, next) => {
   const { id: slug } = req.params;
   try {
     const url = await urls.findOne({ slug });
     if (url) {
       res.redirect(url.url);
     }
-    res.redirect(`/?error=${slug} Not found`);
+    //res.redirect(`/?error=${slug} Not found`);
+    res.sendFile("notfound.html")
   } catch (error) {
-    res.redirect(`/?error=Link not found`)
+    //res.redirect(`/?error=Link not found`)
+    res.sendFile("notfound.html")
   }
 });
 
 
-
+// Schema Validation
 const schema = yup.object().shape({
   slug: yup.string().matches(/[\w\-]/i),
   url: yup.string().trim().url().required(),
 })
-app.post('/url', async (req, res, next) => {
-  let { slug, url } = req.body;
- // let slug= req.body.slug.trim();
- // let url = req.body.url;
+
+// POST Route
+router.post('/url', async (req, res, next) => {
+  //let { slug, url } = req.body;
+   let slug= req.body.slug.trim();
+   let url = req.body.url;
   try {
     if (slug == "") {
-      await schema.validate({
-    //slug,
+        await schema.validate({
+        //slug,
         url,
       });
-    } else {
-      await schema.validate({
-         slug,
-         url,
-      });
-    }
-  if (!slug) {
-    slug = nanoid(5);
-  }
-  else{
-    const existing = await urls.findOne({ slug });
-    if (existing) {
-      throw new Error("Slug in use.")
-    }
-  }
-  slug = slug.toLowerCase();
-  const newUrl ={
-    slug,
-    url,
-  };
-  const created = await urls.insert(newUrl);
-  //console.log(created.slug)
- // const result = `http://localhost:3000/${created.slug}`;
+      } else {
+        await schema.validate({
+           slug,
+           url,
+        });
+      }
+      if (!slug) {
+        slug = nanoid(5);
+      }
+      else{
+        const existing = await urls.findOne({ slug });
+        if (existing) {
+          //throw new Error("Slug in use.")
+          res.end("slug in use")
+        }
+      }
+      
+      slug = slug.toLowerCase();
+      const newUrl ={
+        slug,
+        url,
+      };
+      const created = await urls.insert(newUrl);
+      let createdSlug = created.slug;
+        
+      //  Send response to frontend
+      res.end(createdSlug);
+           
   
-  res.json(created);
-  //res.render('home', { result })
-  } catch (error) {
-    next(error);
-  }
+        //res.json(created);
+        //res.render('home', { result });
+        
+    } catch (error) {
+      res.end("");
+      next(error);
+    }
 });
 
+// Error Handling 
 app.use((error, req, res, next) => {
   if (error.status) {
     res.status(error.status)
@@ -97,10 +118,10 @@ app.use((error, req, res, next) => {
     message: error.message,
     stack: process.env.NODE_ENV === 'production' ? 'Yo' : error.stack,
   });
-})
+});
 
 
-
+// Port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening at https://localhost/${port}`)
