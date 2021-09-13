@@ -32,9 +32,6 @@ app.use("/",router);
 
 // Routes
 //Home Route
-router.get('/yo', (req, res) => {
- res.render("home");
-});
 
 // Get Link by ID route
 router.get('/:id', async (req, res, next) => {
