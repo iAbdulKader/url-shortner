@@ -3,13 +3,16 @@ $(document).ready(function(){
         $("#submit").click(function(){
           url=$("#url").val();
           slug=$("#slug").val();
+          $("#submit").text("...");
           $.post("/url",{url: url,slug: slug}, function(data){
             if(data != "") {
                 $("#result").val("http://akurls.ml/"+data);
+                $("#submit").text("Generate");
                 $(".result").css({display:"flex"});
               }
             if (data == "slug in use") {
                 $("#result").val(data);
+                $("#submit").text("Generate");
                 $(".result").css({display:"flex"});
             }
           });
