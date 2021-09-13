@@ -1,4 +1,5 @@
 const express = require("express");
+var path = require('path');
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -44,10 +45,10 @@ router.get('/:id', async (req, res, next) => {
       res.redirect(url.url);
     }
     //res.redirect(`/?error=${slug} Not found`);
-    res.sendFile("notfound.html")
+    res.sendFile(path.join(__dirname, './public', 'notfound.html'));
   } catch (error) {
     //res.redirect(`/?error=Link not found`)
-    res.sendFile("notfound.html")
+    res.sendFile(path.join(__dirname, './public', 'notfound.html'));
   }
 });
 
