@@ -5,7 +5,7 @@ $(document).ready(function(){
           slug=$("#slug").val();
           $.post("/url",{url: url,slug: slug}, function(data){
             if(data != "") {
-                $("#result").val("http://akurls.herokuapp.com/"+data);
+                $("#result").val("http://akurls.ml/"+data);
                 $(".result").css({display:"flex"});
               }
             if (data == "slug in use") {
