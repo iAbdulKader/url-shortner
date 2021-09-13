@@ -21,6 +21,11 @@ body{
 }
 .header{
   text-align: center;
+  color: white;
+}
+.header a{
+  text-decoration: none;
+  color: white;
 }
 .wrapper{
   display: flex;
@@ -38,6 +43,17 @@ body{
   padding: 5px 20px;
   border-radius: 8px;
 }
+.home{
+  width: 100%;
+  background: #724474;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 8px;
+}
+.home:hover{
+  background: #724474;
+}
 #submit:hover{
   background: #724474;
 }
@@ -51,7 +67,7 @@ input{
   outline: none;
   border: none;
   height: 1.9rem;
-  padding: 0 5px;
+  padding: 0 8px;
   border-radius: 8px;
 }
 button{
