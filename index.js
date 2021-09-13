@@ -83,7 +83,7 @@ router.post('/url', async (req, res, next) => {
         const existing = await urls.findOne({ slug });
         if (existing) {
           //throw new Error("Slug in use.")
-          res.end("slug in use")
+          res.end("Slug already in use")
         }
       }
       
