@@ -1,5 +1,5 @@
 const express = require("express");
-var path = require('path');
+const path = require('path');
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -77,7 +77,7 @@ router.post('/url', async (req, res, next) => {
         });
       }
       if (!slug) {
-        slug = nanoid(5);
+        slug = nanoid(6);
       }
       else{
         const existing = await urls.findOne({ slug });

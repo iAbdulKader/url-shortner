@@ -6,14 +6,41 @@ $(document).ready(function(){
           $.post("/url",{url: url,slug: slug}, function(data){
             if(data != "") {
                 $("#result").val("http://akurls.herokuapp.com/"+data);
+                $(".result").css({display:"flex"});
               }
             if (data == "slug in use") {
                 $("#result").val(data);
+                $(".result").css({display:"flex"});
             }
           });
         });
       });
+  /*   custom slug  */
+    // $(document).ready(function(){
+    //     var slug-text;
+    //     $("#custom-slug").click(function(){
+    //       slug-text=$("#custom-slug").text();
+    //       console.log(slug-text)
+    //       if (slug-text == "Use Custom Slug") {
+    //         $("#slug").css({display:"block"});
+    //         $("#custom-slug").text("Don't Use Custom Slug")
+    //       }
+    //     });
+    // });
+    
+    function customSlug() {
+      var slugText = document.getElementById('custom-slug').innerText;
       
+      if (slugText == "Use Custom Slug") {
+        document.getElementById('custom-slug').innerText = "Don't Use Custom Slug";
+        document.getElementById('slug').style.display = "block";
+      }
+      if (slugText == "Don't Use Custom Slug") {
+        document.getElementById('custom-slug').innerText = "Use Custom Slug";
+        document.getElementById('slug').value = "";
+        document.getElementById('slug').style.display = "none";
+      }
+    }
  // Copy function
    function copy() {
       /* Get the text field */

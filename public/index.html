@@ -4,17 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
   <title>Url Shortner</title>
 </head>
 <body>
- <p>Url Shortner</p> 
-
-   <input type="text" id="url" placeholder="url" name="url">
-   <input type="text" id="slug" placeholder="slug" name="slug">
-   <input id="submit" type="button" value="Submit">
-   <input type="text" id="result" placeholder="result" name="result" readonly>
-   <button onclick="copy()">copy</button>
+  <div class="container">
+    <div class="wrapper">
+        <div class="header"> 
+           <h1>Url Shortner</h1> 
+           <h4>Give me any url and I will short that link</h4>
+        </div>
+       <div class="input">
+          <input type="text" id="url" placeholder="Enter a URL" name="url" required>
+          <button id="custom-slug" onclick="customSlug()">Use Custom Slug</button>
+          <input type="text" id="slug" placeholder="Custom Slug(Optional)" name="slug"> 
+        </div>
+        <div class="submit">
+           <!--<input id="submit" type="button" value="Submit">-->
+           <button id="submit">URL Short</button>
+        </div>
+        <div class="result">
+           <input type="text" id="result" name="result" readonly>
+           <button id="copy" onclick="copy()"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        </div>
+    </div>
+  </div>
  <script src="./app.js"> </script>
 </body>
 </html>
