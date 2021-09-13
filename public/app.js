@@ -5,7 +5,7 @@ $(document).ready(function(){
           slug=$("#slug").val();
           $.post("/url",{url: url,slug: slug}, function(data){
             if(data != "") {
-                $("#result").val("http://localhost:3000/"+data);
+                $("#result").val("http://akurls.herokuapp.com/"+data);
               }
             if (data == "slug in use") {
                 $("#result").val(data);
