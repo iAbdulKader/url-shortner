@@ -4,11 +4,18 @@ $(document).ready(function(){
           url=$("#url").val();
           slug=$("#slug").val();
           $("#submit").text("...");
+          
+          if (url == "") {
+            $("#submit").text("Generate");
+            $("#urlerror").css({display:"block"});
+          } else {
+           $("#urlerror").css({display:"none"});
           $.post("/url",{url: url,slug: slug}, function(data){
             if(data != "") {
-                $("#result").val("http://akurls.ml/"+data);
+                $("#result").val(data);
                 $("#submit").text("Generate");
                 $(".result").css({display:"flex"});
+                
               }
             if (data == "slug in use") {
                 $("#result").val(data);
@@ -16,20 +23,10 @@ $(document).ready(function(){
                 $(".result").css({display:"flex"});
             }
           });
+          }
         });
       });
-  /*   custom slug  */
-    // $(document).ready(function(){
-    //     var slug-text;
-    //     $("#custom-slug").click(function(){
-    //       slug-text=$("#custom-slug").text();
-    //       console.log(slug-text)
-    //       if (slug-text == "Use Custom Slug") {
-    //         $("#slug").css({display:"block"});
-    //         $("#custom-slug").text("Don't Use Custom Slug")
-    //       }
-    //     });
-    // });
+  
     
     function customSlug() {
       var slugText = document.getElementById('custom-slug').innerText;

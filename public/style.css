@@ -32,6 +32,13 @@ body{
   flex-direction: column;
   align-items: center;
 }
+#urlerror{
+  margin: 0;
+  padding: 0 0 4px 8px;
+  font-size: .8rem;
+  color: #fb1111;
+  display: none;
+}
 #slug{
   display: none;
 }
