@@ -10,8 +10,11 @@
   <title>Generate API Key</title>
 </head>
 <body>
-  <h2 id="key"></h2>
-  <button id="key-generate" onclick="click()">Generate</button>
-  <script src="app.js"></script>
+  <form action="/apiGen" method="POST">
+    <input type="text" name="key" id="key" value="<%= locals.createdApi %>">
+    <button type="submit">Generate</button>
+  </form>
+  <% function click(){
+    alert("Hey")} %>
 </body>
 </html>

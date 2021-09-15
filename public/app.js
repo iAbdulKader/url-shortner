@@ -57,6 +57,17 @@ $(document).ready(function(){
       alert("Copied the text");
     }
       
+   $(document).ready(function(){
+        $("#key-generate").click(function(){
+          alert("hey");
+          $.post("/api/generate/key", function(data){
+              $("#key").text(data);
+          });
+        });
+      });
       
+    function click() {
+      alert("hello");
+    }   
       
       

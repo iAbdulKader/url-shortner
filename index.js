@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const yup = require("yup");
+const ejs = require("ejs");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
 const bodyParser = require("body-parser");
@@ -16,12 +17,13 @@ const db = monk(process.env.MONGODB_URI, {
   useNewUrlParser: true,
 });
 const urls = db.get('urls');
-const api_keys = db.get('api_keys')
+const api_keys = db.get('api_keys');
 urls.createIndex({ slug: 1 }, { unique: true });
 api_keys.createIndex({ api_key: 1 }, { unique: true });
 
 // App function 
 const app = express();
+app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 
 // Middlewares
@@ -34,10 +36,19 @@ app.use(bodyParser.json());
 
 app.use("/",router);
 
-app.get("/api/generate/key", (req,res) => {
-  res.sendFile(path.join(__dirname, './public', 'keygenerate.html'));
+router.get("/api/generate/key", (req,res) => {
+  //res.sendFile(path.join(__dirname, './public', 'keygenerate.html'));
+  res.render("apiKeyGen")
 })
-// Routes
+// Routes for ssl
+
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
+  }
+  next();
+});
+
 // API request
 router.post("/create", async (req, res) => {
   let api_key = req.query.api_key;
@@ -74,7 +85,7 @@ router.post("/create", async (req, res) => {
 })
 
 // api key generator
-router.post("/api/generate/key", async (req, res) => {
+router.post("/apiGen", async (req, res) => {
   try {
     const api_key = nanoid(10);
   
