@@ -7,7 +7,7 @@ const yup = require("yup");
 const ejs = require("ejs");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
-const "sslRedirect" = require("heroku-ssl-redirect");
+const sslRedirect = require("heroku-ssl-redirect").default;
 const bodyParser = require("body-parser");
 const router = express.Router();
 require("dotenv").config();
