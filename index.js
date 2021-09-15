@@ -7,7 +7,6 @@ const yup = require("yup");
 const ejs = require("ejs");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
-const sslRedirect = require("heroku-ssl-redirect").default;
 const bodyParser = require("body-parser");
 const router = express.Router();
 require("dotenv").config();
@@ -37,21 +36,12 @@ app.use(bodyParser.json());
 
 app.use("/",router);
 
-// enable ssl redirect
-app.use(sslRedirect());
 
 router.get("/api/generate/key", (req,res) => {
   //res.sendFile(path.join(__dirname, './public', 'keygenerate.html'));
   res.render("apiKeyGen")
 })
-// Routes for ssl
-
-// app.use(function(req, res, next) {
-//   if(!req.secure) {
-//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
-//   }
-//   next();
-// });
+// Routes
 
 // API request
 router.post("/create", async (req, res) => {
