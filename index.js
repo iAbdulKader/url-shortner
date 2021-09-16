@@ -55,13 +55,50 @@ router.get("/api", (req,res) => {
 })
 // Routes
 
+
 // API request
 router.get("/create", async (req, res) => {
   let api_key = req.query.api_key;
   let url = req.query.u;
+  let isEncoded = req.query.encoded;
   
   const isApiKey = await api_keys.findOne({ api_key });
-  try {
+  
+  if(isEncoded === "true"){
+    urldecoded = Buffer.from(url, 'base64').toString();
+    try {
+    await schema.validate({ url: urldecoded });
+    if (isApiKey) {
+  
+      let slug = nanoid(6).toLowerCase();
+      const newUrl ={
+        slug,
+        url: urldecoded,
+      };
+      const created = await urls.insert(newUrl);
+      let createdSlug = created.slug;
+      
+      res.json({
+        shortUrl: `${process.env.HOST_URL}/${createdSlug}`,
+        url: urldecoded
+      })
+    }
+    else{
+      res.json({
+        api_key: "invalid api key"
+      })
+    }
+  } catch (e) {
+    res.json({
+      error: "invalid link and api"
+    })
+  }
+    
+  }
+  
+ else{
+   
+   try {
     await schema.validate({ url });
     if (isApiKey) {
   
@@ -88,6 +125,10 @@ router.get("/create", async (req, res) => {
       error: "invalid link"
     })
   }
+   
+ }
+  
+  
 })
 
 // api key generator
@@ -172,7 +213,7 @@ router.post('/url', async (req, res, next) => {
         //res.render('home', { result });
         
     } catch (error) {
-      res.end("");
+      res.end("Invalid Url");
       next(error);
     }
 });
