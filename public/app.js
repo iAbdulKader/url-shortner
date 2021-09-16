@@ -55,6 +55,7 @@ $(document).ready(function(){
     
       /* Alert the copied text */
       alert("Copied the text");
+      
     }
       
    $(document).ready(function(){
@@ -68,6 +69,7 @@ $(document).ready(function(){
       
     function click() {
       alert("hello");
+      console.log("hekko");
     }   
       
       

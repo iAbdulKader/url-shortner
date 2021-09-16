@@ -23,8 +23,12 @@ api_keys.createIndex({ api_key: 1 }, { unique: true });
 
 // App function 
 const app = express();
-app.set('view engine', 'ejs');
-app.use(express.static('./public'));
+app.use(express.static('public'));
+
+
+// make way for js and css files
+app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/js', express.static(__dirname + '/public/js'));
 
 // Middlewares
 app.use(helmet());
@@ -37,9 +41,18 @@ app.use(bodyParser.json());
 app.use("/",router);
 
 
-router.get("/api/generate/key", (req,res) => {
+// Schema Validation
+const schema = yup.object().shape({
+  slug: yup.string().matches(/[\w\-]/i),
+  url: yup.string().trim().url().required(),
+})
+
+
+router.get("/api", (req,res) => {
   //res.sendFile(path.join(__dirname, './public', 'keygenerate.html'));
-  res.render("apiKeyGen")
+ //res.render("apiKeyGen")
+ res.redirect("/api.html")
+ 
 })
 // Routes
 
@@ -81,7 +94,7 @@ router.post("/create", async (req, res) => {
 // api key generator
 router.post("/apiGen", async (req, res) => {
   try {
-    const api_key = nanoid(10);
+    const api_key = nanoid(16);
   
     const apiKey = {
       api_key
@@ -114,11 +127,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-// Schema Validation
-const schema = yup.object().shape({
-  slug: yup.string().matches(/[\w\-]/i),
-  url: yup.string().trim().url().required(),
-})
+
 
 // POST Route
 router.post('/url', async (req, res, next) => {
