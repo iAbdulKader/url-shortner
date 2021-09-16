@@ -56,7 +56,7 @@ router.get("/api", (req,res) => {
 // Routes
 
 // API request
-router.post("/create", async (req, res) => {
+router.get("/create", async (req, res) => {
   let api_key = req.query.api_key;
   let url = req.query.u;
   
