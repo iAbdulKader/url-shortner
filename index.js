@@ -4,7 +4,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const yup = require("yup");
-const ejs = require("ejs");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
 const bodyParser = require("body-parser");
