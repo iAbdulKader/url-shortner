@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const yup = require("yup");
 const { nanoid } = require("nanoid");
 const monk = require("monk");
+const { wakeDyno } = require('heroku-keep-awake');
 const bodyParser = require("body-parser");
 const router = express.Router();
 require("dotenv").config();
@@ -19,6 +20,14 @@ const urls = db.get('urls');
 const api_keys = db.get('api_keys');
 urls.createIndex({ slug: 1 }, { unique: true });
 api_keys.createIndex({ api_key: 1 }, { unique: true });
+
+// Heroku Dyno Alive
+const DYNO_URL = process.env.HOST_URL;
+const opts = {
+    interval: 25,
+    logging: false,
+    stopTimes: { start: '18:50', end: '02:00' }
+}
 
 // App function 
 const app = express();
@@ -238,6 +247,7 @@ app.use((error, req, res, next) => {
 // Port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Listening at https://localhost/${port}`)
+  wakeDyno(DYNO_URL, opts);
+  console.log(`Listening at https://localhost/${port}`);
 });
 
