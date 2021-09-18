@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const { nanoid } = require("nanoid");
+const bodyParser = require("body-parser");
 const { wakeDyno } = require('heroku-keep-awake');
-const router = express.Router();
 require("dotenv").config();
 
 // Routes import
@@ -35,21 +36,23 @@ app.use(helmet());
 app.use(morgan('short'));
 app.use(cors());
 app.use(express.json());
-app.use("/",router);
-
-// Error Handling 
-app.use(errorHandling);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Routes
-router.get("/api", apiRoute)
+app.get("/api", apiRoute)
 // API request
-router.get("/create", createByApi)
+app.get("/create", createByApi)
 // api key generator
 app.post("/apiKeyGen", apiKeyGen);
 // Get Link by ID = slug route
-router.get('/:id', getBySlug);
+app.get('/:id', getBySlug);
 // POST Route
-router.post('/url', postUrlRoute);
+app.post('/url', postUrlRoute);
+
+
+// Error Handling 
+app.use(errorHandling);
 
 // Port
 const port = process.env.PORT || 3000;

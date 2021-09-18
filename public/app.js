@@ -10,7 +10,7 @@ $(document).ready(function(){
             $("#urlerror").css({display:"block"});
           } else {
            $("#urlerror").css({display:"none"});
-          $.post("/url",{url: url,slug: slug}, function(data){
+           $.post('/url',{url: url, slug: slug}, function(data){
             if(data != "") {
                 $("#result").val(data);
                 $("#submit").text("Generate");
@@ -54,22 +54,8 @@ $(document).ready(function(){
       navigator.clipboard.writeText(copyText.value);
     
       /* Alert the copied text */
-      alert("Copied the text");
+      alert("Copied");
       
     }
-      
-   $(document).ready(function(){
-        $("#key-generate").click(function(){
-          alert("hey");
-          $.post("/api/generate/key", function(data){
-              $("#key").text(data);
-          });
-        });
-      });
-      
-    function click() {
-      alert("hello");
-      console.log("hekko");
-    }   
       
       
