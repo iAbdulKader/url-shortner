@@ -20,7 +20,7 @@ const opts = {
     interval: 25,
     logging: false,
     stopTimes: { start: '18:50', end: '02:00' }
-}
+};
 
 // App function 
 const app = express();
@@ -45,7 +45,7 @@ router.get("/api", apiRoute)
 // API request
 router.get("/create", createByApi)
 // api key generator
-app.post("/apiKeyGen", apiKeyGen)
+app.post("/apiKeyGen", apiKeyGen);
 // Get Link by ID = slug route
 router.get('/:id', getBySlug);
 // POST Route

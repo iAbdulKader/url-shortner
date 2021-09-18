@@ -5,12 +5,10 @@ require("dotenv").config();
 
 const postUrlRoute = async (req, res, next) => {
   let { slug, url } = req.body;
-  // let slug= req.body.slug;
- //  let url = req.body.url;
+
   try {
     if (slug == "") {
         await schema.validate({
-        //slug,
         url,
       });
       } else {
@@ -40,10 +38,8 @@ const postUrlRoute = async (req, res, next) => {
       const shortUrl = `${process.env.HOST_URL}/${createdSlug}`
       //  Send response to frontend
       res.end(shortUrl);
-           
-  
-        //res.json(created);
-        //res.render('home', { result });
+      // Send json response
+       //res.json(created);
         
     } catch (error) {
       res.end("Invalid Url");

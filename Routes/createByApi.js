@@ -24,17 +24,20 @@ const createByApi = async (req, res) => {
       let createdSlug = created.slug;
       
       res.json({
+        status: true,
         shortUrl: `${process.env.HOST_URL}/${createdSlug}`,
         url: urldecoded
       })
     }
     else{
       res.json({
+        status: false,
         api_key: "invalid api key"
       })
     }
   } catch (e) {
     res.json({
+      status: false,
       error: "invalid link and api"
     })
   }
@@ -56,17 +59,20 @@ const createByApi = async (req, res) => {
       let createdSlug = created.slug;
       
       res.json({
+        status: true,
         shortUrl: `${process.env.HOST_URL}/${createdSlug}`,
         url: url
       })
     }
     else{
       res.json({
+        status: false,
         api_key: "invalid api key"
       })
     }
   } catch (e) {
     res.json({
+      status: false,
       error: "invalid link"
     })
   }
