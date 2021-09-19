@@ -3,7 +3,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const { nanoid } = require("nanoid");
-const bodyParser = require("body-parser");
 const { wakeDyno } = require('heroku-keep-awake');
 require("dotenv").config();
 
@@ -36,8 +35,7 @@ app.use(helmet());
 app.use(morgan('short'));
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get("/api", apiRoute)
