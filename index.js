@@ -1,18 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const helmet = require("helmet");
 const { nanoid } = require("nanoid");
+const path = require("path");
 const { wakeDyno } = require('heroku-keep-awake');
 require("dotenv").config();
 
-// Routes import
-const apiRoute = require("./Routes/apiRoute");
-const createByApi = require("./Routes/createByApi");
-const apiKeyGen = require("./Routes/apiKeyGen");
-const getBySlug = require("./Routes/getBySlug");
-const postUrlRoute = require("./Routes/postUrlRoute");
-const errorHandling = require("./Routes/errorHandling");
 
 // Heroku Dyno Alive
 const DYNO_URL = process.env.HOST_URL;
@@ -26,30 +19,33 @@ const opts = {
 const app = express();
 app.use(express.static('public'));
 
-// make way for js and css files
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use('/js', express.static(__dirname + '/public/js'));
+// view engine set up
+app.set("views", path.join(__dirname, "/views"));
+app.set("view engine", "ejs");
 
 // Middlewares
-app.use(helmet());
 app.use(morgan('short'));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get("/api", apiRoute)
+// HOME 
+app.use("/", require("./Routes/homeRoute"));
+// API route
+app.use("/api", require("./Routes/apiRoute"));
 // API request
-app.get("/create", createByApi)
+app.use("/create", require("./Routes/createByApi"));
 // api key generator
-app.post("/apiKeyGen", apiKeyGen);
-// Get Link by ID = slug route
-app.get('/:id', getBySlug);
+app.use("/apiKeyGen", require("./Routes/apiKeyGen"));
 // POST Route
-app.post('/url', postUrlRoute);
+app.use('/url', require("./Routes/postUrlRoute"));
+// Get Link by ID = slug route
+app.use('', require("./Routes/getBySlug"));
 
 
 // Error Handling 
+const errorHandling = require("./Routes/errorHandling");
 app.use(errorHandling);
 
 // Port

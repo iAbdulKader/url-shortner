@@ -1,8 +1,9 @@
 const { nanoid } = require("nanoid");
 const schema = require("../Model/schema");
 const { urls, api_keys } = require("../Model/database");
+const router = require("express").Router();
 
-const createByApi = async (req, res) => {
+router.get("", async (req, res) => {
   let api_key = req.query.api_key;
   let url = req.query.u;
   let isEncoded = req.query.encoded;
@@ -79,6 +80,7 @@ const createByApi = async (req, res) => {
    
  }
   
-};
+});
 
-module.exports = createByApi;
+
+module.exports = router;

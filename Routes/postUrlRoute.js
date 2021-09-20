@@ -1,13 +1,13 @@
 const { nanoid } = require("nanoid");
 const schema = require("../Model/schema");
 const { urls } = require("../Model/database");
+const router = require("express").Router();
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
 
-const postUrlRoute = async (req, res, next) => {
+router.post("", async (req, res, next) => {
   let { url, slug } = req.body;
-  console.log(slug, url)
   try {
     if (slug == "") {
         await schema.validate({
@@ -36,7 +36,6 @@ const postUrlRoute = async (req, res, next) => {
         url,
       };
       const created = await urls.insert(newUrl);
-      console.log(created);
       let createdSlug = created.slug;
       const shortUrl = `${process.env.HOST_URL}/${createdSlug}`
       //  Send response to frontend
@@ -48,6 +47,6 @@ const postUrlRoute = async (req, res, next) => {
       res.end("Invalid Url");
       next(error);
     }
-}
+});
 
-module.exports = postUrlRoute;
+module.exports = router;

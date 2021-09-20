@@ -1,6 +1,6 @@
 $(document).ready(function(){
-        var url,slug;
         $("#submit").click(function(){
+         var url,slug;
           url=$("#url").val();
           slug=$("#slug").val();
           $("#submit").text("...");
@@ -25,7 +25,7 @@ $(document).ready(function(){
           });
           }
         });
-      });
+     });
   
     
     function customSlug() {
@@ -57,5 +57,7 @@ $(document).ready(function(){
       alert("Copied");
       
     }
+      
+      
       
       

@@ -1,7 +1,8 @@
 const { nanoid } = require("nanoid");
 const { api_keys } = require("../Model/database");
+const router = require("express").Router()
 
-const apiKeyGen = async (req, res) => {
+router.post("", async (req, res) => {
   try {
     const api_key = nanoid(16);
   
@@ -16,6 +17,6 @@ const apiKeyGen = async (req, res) => {
   } catch (e) {
     res.end("Try Again")
   }
-}
+});
 
-module.exports = apiKeyGen;
+module.exports = router;
