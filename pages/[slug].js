@@ -13,7 +13,7 @@ export const getServerSideProps = async (ctx) => {
     const apiURL = `${process.env.HOST_URL}/api/getBySlug`
     const res = await axios.post(apiURL, { slug: slug })
     
-    if(res.data.success != false){
+    if(res.status == 200){
       return {
         redirect: {
           permanent: true,
