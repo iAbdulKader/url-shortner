@@ -10,8 +10,8 @@ export default function slug(){
 export const getServerSideProps = async (ctx) => {
   try {
     const slug = ctx.params.slug;
-    const apiURL = `${process.env.HOST_URL}/api/getBySlug`
-    const res = await axios.post(apiURL, { slug: slug })
+    const HOST_URL = process.env.HOST_URL
+    const res = await axios.post(`${HOST_URL}/api/getBySlug`, { slug: slug })
     
     if(res.status == 200){
       return {
