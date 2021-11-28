@@ -15,7 +15,6 @@ handler.post(async (req, res) => {
     const url = await Url.findOne({ slug });
 
     if (url) {
-      console.log(url)
       res.status(200).json(url);
     }
     else{
