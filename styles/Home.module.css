@@ -33,7 +33,19 @@
 }
 .main input{
   margin: 6px auto;
-  padding: 7px 15px;
+  padding: 5px 10px;
+  display: block;
+  outline: none;
+  border: 1px solid #0070f3;
+  margin-bottom: 0.9rem;
+  width: 100%;
+  max-width: 300px;
+  height: 38px;
+  border-radius: 5px;
+}
+.main input:focus{
+  box-shadow: 0 0 8px #0070f3;
+  outline: none;
 }
 .shortUrlHolder{
   background: rgb(192,192,192);
@@ -44,6 +56,8 @@
   align-items: center;
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 0;
+  border-radius: 5px;
 }
 .shortUrlHolder input{
   padding: 0;
@@ -51,6 +65,15 @@
   outline: none;
   background: none;
   border: none;
+  margin: auto auto;
+}
+.shortUrlHolder input:focus{
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.koma{
+  color: #ff5757;
 }
 .title a {
   color: #0070f3;
