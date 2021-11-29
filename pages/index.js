@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import toast, { Toaster } from 'react-hot-toast';
+import { Icon } from '@iconify/react';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -47,7 +48,9 @@ export default function Home() {
       <Toaster />
       <Head>
         <title>A Link | Link Shortner</title>
-        <meta name="description" content="Simple, Easy, Fast and Efficient Link Shortner" />
+        <meta name="description" content="Simple, Easy, Fast and Efficient Link Shortner.
+        
+        Shorten Your Links Easily With Custom Short Url" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -72,7 +75,9 @@ export default function Home() {
         { shortUrl != "" ? <div className={styles.shortUrlHolder}>
          <input name="shortUrl" value={shortUrl} readOnly />
            <CopyToClipboard text={shortUrl} >
-             <p onClick={notify}>Copy</p>
+             <div onClick={notify}>
+              <Icon className={styles.copyBtn} icon="uil:file-copy-alt" width="25" height="25" />
+             </div>
            </CopyToClipboard>
         </div> : null}
       </main>

@@ -47,6 +47,12 @@
   box-shadow: 0 0 8px #0070f3;
   outline: none;
 }
+.slugHolder input{
+  display: inline;
+}
+.slugHolder p{
+  display: inline-block;
+}
 .shortUrlHolder{
   background: rgb(192,192,192);
   width: 100%;
@@ -90,4 +96,7 @@
   margin: 0 0 10px 0;
   line-height: 1.15;
   font-size: 3rem;
+}
+.copyBtn{
+  margin: 3.5px 0 0 0;
 }
