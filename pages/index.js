@@ -46,14 +46,14 @@ export default function Home() {
     <div className={styles.container}>
       <Toaster />
       <Head>
-        <title>AK Link | Link Shortner</title>
+        <title>A Link | Link Shortner</title>
         <meta name="description" content="Simple, Easy, Fast and Efficient Link Shortner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <a href="https://abdulkader.tk">AKLink!</a><span className={styles.koma}>,</span><br />Link Shortner
+          <a href="https://abdulkader.tk">aLink!</a><span className={styles.koma}>,</span><br />Link Shortner
         </h1>
 
       
