@@ -16,14 +16,9 @@ handler.post(async (req, res) => {
   let slug = req.body.slug;
  
   try {
-    if (slug == "") {
+      if (slug) {
         await schema.validate({
-        url,
-      });
-      } else {
-        await schema.validate({
-          slug,
-          url,
+          slug
         });
       }
       if (!slug || slug == undefined) {
