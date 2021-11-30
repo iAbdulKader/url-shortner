@@ -29,14 +29,16 @@ export default function Home() {
           setLoading(false)
           toast.error("Slug Already In Use")
           setButtonText("Generate")
+        } else {
+          setShortUrl(res.data.shortUrl);
+          setLoading(false);
+          setButtonText("Generated")
+          
+          setTimeout(function() {
+            setButtonText("Generate")
+          }, 2000);
         }
-        setShortUrl(res.data.shortUrl);
-        setLoading(false);
-        setButtonText("Generated")
         
-        setTimeout(function() {
-          setButtonText("Generate")
-        }, 2000);
       } catch (e) {
         setShortUrl("");
         setLoading(false);
