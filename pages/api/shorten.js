@@ -55,6 +55,8 @@ handler.post(async (req, res) => {
 
 export async function postUrl(slug, url){
     slug = slug.toLowerCase();
+    url = url.search(/((http(s)?):\/\/)/i) == 0 ? url : "https://" + url;
+    
     const shortUrl = `${process.env.HOST_URL}/${slug}`
     const newUrl = new Url({
       slug,
