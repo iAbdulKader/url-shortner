@@ -5,15 +5,15 @@ import dbConnect from '../../lib/database/dbConnect';
 import Url from '../../lib/database/model/Url';
 import schema from '../../lib/database/schema';
 
-const handler = nextConnect();
-
 dbConnect()
+
+const handler = nextConnect();
 handler.use(middleware);
 
 
 handler.post(async (req, res) => {
-  let url = req.body.url;
-  let slug = req.body.slug;
+  let url = req.body.url.trim();
+  let slug = req.body.slug.trim();
  
   try {
       await schema.validate({
@@ -28,8 +28,7 @@ handler.post(async (req, res) => {
       if (!slug || slug == undefined) {
         slug = nanoid(6);
       } else {
-        const existing = await Url.findOne({ slug });
-        console.log(existing)
+        const existing = await Url.findOne({ slug: slug });
         if (existing) {
          return res.status(201).json({
             success: false,
@@ -47,7 +46,6 @@ handler.post(async (req, res) => {
       });
       const response = await newUrl.save();
       // Send json response
-      console.log("res", response)
       res.status(200).json(response);
       
   } catch (e) {
