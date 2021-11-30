@@ -16,16 +16,20 @@ handler.post(async (req, res) => {
   let slug = req.body.slug;
  
   try {
+      await schema.validate({
+          url
+        })
       if (slug) {
         await schema.validate({
-          slug
+          slug,
+          url
         });
       }
       if (!slug || slug == undefined) {
         slug = nanoid(6);
-      }
-      else{
+      } else {
         const existing = await Url.findOne({ slug });
+        console.log(existing)
         if (existing) {
          return res.status(201).json({
             success: false,
@@ -43,9 +47,11 @@ handler.post(async (req, res) => {
       });
       const response = await newUrl.save();
       // Send json response
+      console.log("res", response)
       res.status(200).json(response);
       
   } catch (e) {
+    console.log(e.message)
     res.status(500).json({
       success: false,
       message: e.message
