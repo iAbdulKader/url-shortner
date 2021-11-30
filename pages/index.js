@@ -24,7 +24,7 @@ export default function Home() {
     if(url.length > 4){
       try {
         const res = await axios.post("/api/shorten", { url, slug });
-        if (res.data.shortUrl == "Slug Already In Use") {
+        if (res.data.shortUrl === "Slug Already In Use") {
           setShortUrl("");
           setLoading(false)
           toast.error("Slug Already In Use")
@@ -38,7 +38,7 @@ export default function Home() {
           setButtonText("Generate")
         }, 2000);
       } catch (e) {
-        setShortUrl(e.code);
+        setShortUrl("");
         setLoading(false);
         toast.error("Invalid URL or Slug.")
       }
