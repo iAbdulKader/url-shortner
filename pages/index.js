@@ -45,6 +45,7 @@ export default function Home() {
         toast.error("Invalid URL or Slug.")
       }
     } else {
+      setShortUrl("")
       toast.error('Enter Valid URL First')
       setLoading(false)
     }
