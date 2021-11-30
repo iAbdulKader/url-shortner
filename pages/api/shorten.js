@@ -27,27 +27,23 @@ handler.post(async (req, res) => {
       }
       if (!slug || slug == undefined) {
         slug = nanoid(6);
+        const response = await postUrl(slug, url);
+          // Send json response
+        res.status(200).json(response);
       } else {
+        slug = slug.toLowerCase();
         const existing = await Url.findOne({ slug: slug });
         if (existing) {
          return res.status(201).json({
             success: false,
             shortUrl: "Slug Already In Use"
           })
+        } else {
+          const response = await postUrl(slug, url);
+          // Send json response
+          res.status(200).json(response);
         }
       }
-      
-      slug = slug.toLowerCase();
-      const shortUrl = `${process.env.HOST_URL}/${slug}`
-      const newUrl = new Url({
-        slug,
-        url,
-        shortUrl
-      });
-      const response = await newUrl.save();
-      // Send json response
-      res.status(200).json(response);
-      
   } catch (e) {
     console.log(e.message)
     res.status(500).json({
@@ -57,4 +53,15 @@ handler.post(async (req, res) => {
   }
 })
 
+export async function postUrl(slug, url){
+    slug = slug.toLowerCase();
+    const shortUrl = `${process.env.HOST_URL}/${slug}`
+    const newUrl = new Url({
+      slug,
+      url,
+      shortUrl
+    })
+    const response = await newUrl.save();
+    return response;
+}
 export default handler;

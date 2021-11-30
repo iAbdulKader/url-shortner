@@ -30,6 +30,7 @@ export default function Home() {
           toast.error("Slug Already In Use")
           setButtonText("Generate")
         } else {
+          toast.success("Short URL Generated")
           setShortUrl(res.data.shortUrl);
           setLoading(false);
           setButtonText("Generated")
