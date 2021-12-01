@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+
+import styles from '../styles/Home.module.css';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import toast, { Toaster } from 'react-hot-toast';
 import { Icon } from '@iconify/react';
