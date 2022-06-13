@@ -1,4 +1,5 @@
-<div><img src=https://telegra.ph/file/16ccafb2dbfca1e2659a5.jpg width="32px"/> <h1> url shortner </h1> </div>
+<div align="center"><h1> <img src=https://telegra.ph/file/16ccafb2dbfca1e2659a5.jpg width="128px"/> </h1> </div>
+<div align="center"><h1> Url Shortner </h1> </div>
 
 # About
 Simple Url Shortner made with nextjs, MongoDB and edge functions.
