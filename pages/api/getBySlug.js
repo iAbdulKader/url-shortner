@@ -15,6 +15,13 @@ handler.post(async (req, res) => {
     const url = await Url.findOne({ slug });
 
     if (url) {
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader(
+           "Cache-Control",
+           "s-maxage=1000000000, stale-while-revalidate"
+      );
+
       res.status(200).json(url);
     }
     else{
